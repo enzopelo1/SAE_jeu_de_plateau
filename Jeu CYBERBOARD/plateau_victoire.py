@@ -224,20 +224,21 @@ def mettre_a_jour_joueur_en_cours():
     global joueur_actuel
 
     # Tant que le joueur actuel n'est pas vivant, passez au joueur suivant vivant
-    while joueur_actuel not in [personnage.joueur_numero for personnage in liste_personnages]:
+    while len(liste_personnages) > 0 and joueur_actuel not in [personnage.joueur_numero for personnage in liste_personnages]:
         joueur_actuel = (joueur_actuel % len(liste_personnages)) + 1
 
-    # Récupération du personnage en cours
-    joueur_en_cours = liste_personnages[joueur_actuel - 1]
+    if len(liste_personnages) > 0:
+        # Récupération du personnage en cours
+        joueur_en_cours = liste_personnages[joueur_actuel - 1]
 
-    couleur_joueur_en_cours = joueur_en_cours.couleur
+        couleur_joueur_en_cours = joueur_en_cours.couleur
 
-    # Mise à jour de l'interface utilisateur pour indiquer le joueur en cours avec la couleur
-    joueur_label.config(
-        text=f"Joueur en cours : Joueur {joueur_actuel}", fg=couleur_joueur_en_cours)
+        # Mise à jour de l'interface utilisateur pour indiquer le joueur en cours avec la couleur
+        joueur_label.config(
+            text=f"Joueur en cours : Joueur {joueur_actuel}", fg=couleur_joueur_en_cours)
 
 
-dernier_attaquant = -1
+# dernier_attaquant = -1
 
 
 def attaquer():
@@ -246,27 +247,36 @@ def attaquer():
 
     verifier_victoire()
 
-    personnage_attaquant = liste_personnages[joueur_actuel - 1]
+    # Recherche du joueur attaquant actuel
+    personnage_attaquant = None
+    for personnage in liste_personnages:
+        if personnage.joueur_numero == joueur_actuel:
+            personnage_attaquant = personnage
+            break
 
-    # Vérifiez si le joueur actuel est différent du dernier attaquant
-    if joueur_actuel != dernier_attaquant and personnage_attaquant.vie > 0:
+    if personnage_attaquant is not None:
+        # Parcourez tous les autres personnages
         for personnage_cible in liste_personnages:
-            if personnage_cible != personnage_attaquant and personnage_cible.vie > 0:
+            if personnage_cible != personnage_attaquant:
+                # Définir votre propre valeur de distance maximale
                 distance_maximale = personnage_attaquant.taille * 2
                 if est_a_proximite(personnage_attaquant, personnage_cible, distance_maximale):
                     personnage_cible.mettre_a_jour_vie(
                         personnage_cible.vie - personnage_attaquant.force)
 
-        dernier_attaquant = joueur_actuel
+        # Si le personnage attaquant est mort, retirez-le de la liste
+        if personnage_attaquant not in liste_personnages:
+            liste_personnages.remove(personnage_attaquant)
 
-        # Vérifiez à nouveau s'il y a un gagnant après l'attaque
-        verifier_victoire()
+        # Mettez à jour la variable dernier_attaquant
+        dernier_attaquant = joueur_actuel
 
         # Passez au joueur suivant
         changer_de_joueur()
+
     else:
-        # Affichez un message pour indiquer que le joueur ne peut pas attaquer
-        print("Le joueur ne peut pas attaquer.")
+        # Affichez un message pour indiquer que le joueur ne peut pas attaquer deux fois de suite
+        print("Le joueur ne peut pas attaquer deux fois de suite.")
 
 
 def verifier_victoire():
@@ -276,6 +286,14 @@ def verifier_victoire():
     if len(joueurs_en_vie) == 1:
         gagnant = joueurs_en_vie[0]
         print(f"Le joueur {gagnant.joueur_numero} a gagné !")
+
+        # Créez un label pour afficher le message du gagnant
+        message_gagnant = tk.Label(
+            canvas, text=f"Le joueur {gagnant.joueur_numero} a gagné !", fg="white", bg="black")
+        message_gagnant.place(x=largeur_ecran // 2 - 100, y=hauteur_ecran // 2)
+
+        # Mettez à jour l'interface utilisateur pour afficher le joueur en cours
+        mettre_a_jour_joueur_en_cours()
 
 
 def changer_de_joueur():
@@ -423,9 +441,9 @@ if __name__ == '__main__':
             f"Carré {index + 1}: x={info['x']}, y={info['y']}, taille={info['taille']}")
 
     # Liste des coordonnées spécifiques
-    # coordonnées de test : (689, 313), (609, 233), (329, 313), (609, 593)
+    # coordonnées de test : (689, 313), (609, 233), (609, 313), (609, 393)
     # coordonnées de base : (889, 313), (609, 33), (329, 313), (609, 593)
-    coordonnees_specifiques = [(689, 313), (609, 233), (329, 313), (609, 593)]
+    coordonnees_specifiques = [(889, 313), (609, 33), (329, 313), (609, 593)]
     couleurs_disponibles = ["red", "blue", "green", "yellow"]
     liste_personnages = []
 

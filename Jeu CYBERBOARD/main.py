@@ -7,7 +7,7 @@ def lancer_plateau_mort_joueur():
     # Cette fonction est appelée lorsque de l'appelle 4 joueurs dans le menu
     subprocess.run(["python", "choix_joueur.py"])
     # Exécute plateau_mort_joueur.py de manière asynchrone
-    plateau_process = subprocess.Popen(["python", "plateau_mort_joueur.py"])
+    plateau_process = subprocess.Popen(["python", "plateau_victoire.py"])
 
     # Boucle pour surveiller la fenêtre du plateau
     while plateau_process.poll() is None:

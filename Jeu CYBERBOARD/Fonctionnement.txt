@@ -1,0 +1,19 @@
+Ce qui fonctionne :
+- le plateau
+- les déplacements des joueurs (le personnage ne peut pas sortir du plateau et il ne peut pas aller sur un autre joueur)
+- Le menu :
+    * les boutons JOUER (4 JOUEURS, RETOUR), PARAMETRES (LIRE MUSIQUE, PAUSE MUSIQUE, RETOUR), QUITTER, REGLES DU JEU, CREDITS, 
+- le tour par tour avec une écriture des personnages qui doivent jouer (mais lorsqu'un perosnnage meurt il y a un problème)
+- les attaques fonctionnent bien
+- les statistiques des joueurs
+- le choix des personnages (avec un fichier json qui est créé pour récuperer les informations)
+- les cases mystères sont posés aléatoirement 
+- les personnages sont distribués aléatoirement dans les 4 coins
+
+
+Ce qui ne fonctionne pas :
+- qu'il y est moins de 4 personnages
+- la sauvegarde
+- l'affichage du joueur qui gagne sur le plateau (jeu qui crash lorsqu'il gagne)
+- les cases mystères ne servent pas
+- liste des perosnnages qui doivent jouer mal mis à jour par moment

@@ -1,5 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import json
+
 
 # Crée une fenêtre Tkinter
 fenetre = tk.Tk()
@@ -95,6 +97,7 @@ for i, image_path in enumerate(personnages):
     label_image.bind("<Button-1>", lambda event,
                      image_path=image_path: choisir_personnage(image_path))
 
+
 # Lance la boucle principale de l'interface Tkinter
 fenetre.mainloop()
 
@@ -102,3 +105,14 @@ fenetre.mainloop()
 for joueur, personnage in personnages_selectionnes.items():
     print(
         f"{joueur} a choisi {noms_personnages[personnages.index(personnage)]}.")
+
+# Crée un dictionnaire pour stocker les choix des joueurs
+choix_joueurs = {}
+
+# Enregistre les personnages choisis dans le dictionnaire
+for joueur, personnage in personnages_selectionnes.items():
+    choix_joueurs[joueur] = personnage
+
+# Enregistre le dictionnaire dans un fichier JSON
+with open("choix_joueurs.json", "w") as fichier:
+    json.dump(choix_joueurs, fichier)
