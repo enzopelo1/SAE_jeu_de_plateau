@@ -1,0 +1,5 @@
+Commment lancer le jeu : 
+
+Ouvrez le dossier jeu CYBERBOARD dans vs code.
+Une fois arriver dans VSCODE ouvrez le fichier qui se nomme main.py.
+Enfin lancer le programme avec la fleche en haut à droite, à vous de jouer.

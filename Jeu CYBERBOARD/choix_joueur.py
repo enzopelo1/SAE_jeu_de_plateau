@@ -44,17 +44,16 @@ noms_personnages = [
 joueurs = ["Joueur 1", "Joueur 2", "Joueur 3", "Joueur 4"]
 indice_joueur = 0  # Indice du joueur actuel
 
-# Crée une variable pour enregistrer le personnage choisi par chaque joueur
+# variable pour enregistrer le personnage choisi par chaque joueur
 personnages_selectionnes = {}
 
 # Redimensionne les images à une taille fixe
-largeur_image = 200  # Changer la largeur souhaitée
-hauteur_image = 300  # Changer la hauteur souhaitée
-
-# Crée une fonction pour gérer le clic sur une image
+largeur_image = 200  # Changement de la largeur souhaitée
+hauteur_image = 300  # Changement la hauteur souhaitée
 
 
 def choisir_personnage(image_path):
+    '''Fonction appelée lorsqu'un joueur clique sur une image de personnage'''
     global indice_joueur
 
     # Enregistre le personnage choisi pour le joueur actuel
@@ -72,16 +71,16 @@ def choisir_personnage(image_path):
             text=f"{joueurs[indice_joueur]}, choisissez un personnage :")
 
 
-# Affiche le nom du premier joueur
+# Affiche le nom du joueur actuel qui doit choisir un personnage
 label_nom_joueur = tk.Label(
     fenetre, text=f"{joueurs[indice_joueur]}, choisissez un personnage :", bg="black", fg="white", font=("Arial", 16))
 label_nom_joueur.pack(pady=20)
 
-# Crée un cadre pour centrer les images au milieu de l'écran
+# Création d'un cadre pour centrer les images au milieu de l'écran
 cadre_images = tk.Frame(fenetre, bg="black")
 cadre_images.pack(expand=True, fill="both")
 
-# Crée une grille pour organiser les images
+# Création d'une grille pour organiser les images
 grille_images = tk.Frame(cadre_images, bg="black")
 grille_images.pack()
 

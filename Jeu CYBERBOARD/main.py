@@ -20,7 +20,7 @@ def lancer_plateau_mort_joueur():
 
 
 if __name__ == '__main__':
-    # Créez une instance de la classe Menu et utilisez son bouton "4 JOUEURS" pour lancer le jeu
+    # Création d'une instance de la classe Menu
     menu_principal = menu_relie.Menu()
     menu_principal.bouton_joueur1.config(command=lancer_plateau_mort_joueur)
     menu_principal.bouton_joueur2.config(command=lancer_plateau_mort_joueur)

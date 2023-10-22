@@ -2,7 +2,6 @@ import tkinter as tk
 import math
 import random
 from tkinter import Label
-import menu
 
 
 class Personnage:
@@ -21,10 +20,10 @@ class Personnage:
             x, y, x + taille, y + taille, fill=couleur)
 
         # Initialisation de la variable cercle_deplacement à une liste vide
-        self.cercles_deplacement = []  # Utiliser une liste vide ici
+        self.cercles_deplacement = []  # Utilisation d'une liste vide
 
         self.informations_carrés = informations_carrés
-        # Associer un gestionnaire d'événement de clic à ce personnage
+        # Association d'un gestionnaire d'événement de clic à ce personnage
         self.canvas.tag_bind(self.rectangle, '<Button-1>',
                              self.clic_personnage)
         # Les déplacements possibles
@@ -83,7 +82,7 @@ class Personnage:
             # Suppression des anciens déplacements temporaires s'ils existent
             self.supprimer_deplacement_temporaire()
 
-            # Nettayage de la liste des cercles de déplacement temporaires
+            # Nettoyage de la liste des cercles de déplacement temporaires
             self.cercles_deplacement = []
 
             # Je défini les nouvelles coordonnées du personnage après le déplacement
@@ -109,7 +108,7 @@ class Personnage:
                 self.canvas.tag_bind(
                     cercle, '<Button-1>', lambda event, dx=dx, dy=dy: self.deplacer(dx, dy))
 
-    def afficher_deplacement_temporaire(self, dx, dy, x, y):
+    def afficher_deplacement_temporaire(self, dx, dy, x, y) -> list:
         '''Fonction qui affiche les cercles de déplacement temporaire autour du personnage qui a été cliqué'''
         cercles_temporaires = []
         # Le rayon est la moitié de la taille du carré et -1 pour qu'il soit un peu plus petit que le carré
@@ -166,7 +165,7 @@ class Personnage:
         # Mise à jour de l'interface utilisateur pour afficher le joueur en cours
         mettre_a_jour_joueur_en_cours()
 
-    def collision(self, new_x, new_y):
+    def collision(self, new_x, new_y) -> bool:
         '''Fonction qui vérifie si un personnage se trouve sur un carré occupé par un autre personnage'''
         for personnage in liste_personnages:
             if personnage != self:  # Ignore le personnage lui-même
@@ -255,27 +254,27 @@ def attaquer():
             break
 
     if personnage_attaquant is not None:
-        # Parcourez tous les autres personnages
+        # Parcour de tous les autres personnages
         for personnage_cible in liste_personnages:
             if personnage_cible != personnage_attaquant:
-                # Définir votre propre valeur de distance maximale
-                distance_maximale = personnage_attaquant.taille * 2
+                # Définition distance maximale
+                distance_maximale = personnage_attaquant.taille
                 if est_a_proximite(personnage_attaquant, personnage_cible, distance_maximale):
                     personnage_cible.mettre_a_jour_vie(
                         personnage_cible.vie - personnage_attaquant.force)
 
-        # Si le personnage attaquant est mort, retirez-le de la liste
+        # Si le personnage attaquant est mort, je le retire de la liste
         if personnage_attaquant not in liste_personnages:
             liste_personnages.remove(personnage_attaquant)
 
-        # Mettez à jour la variable dernier_attaquant
+        # Mise à jour de la variable dernier_attaquant
         dernier_attaquant = joueur_actuel
 
-        # Passez au joueur suivant
+        # Passage au joueur suivant
         changer_de_joueur()
 
     else:
-        # Affichez un message pour indiquer que le joueur ne peut pas attaquer deux fois de suite
+        # Affichage d'un message pour indiquer que le joueur ne peut pas attaquer deux fois de suite
         print("Le joueur ne peut pas attaquer deux fois de suite.")
 
 
@@ -287,12 +286,12 @@ def verifier_victoire():
         gagnant = joueurs_en_vie[0]
         print(f"Le joueur {gagnant.joueur_numero} a gagné !")
 
-        # Créez un label pour afficher le message du gagnant
+        # Création d'un label pour afficher le message du gagnant
         message_gagnant = tk.Label(
             canvas, text=f"Le joueur {gagnant.joueur_numero} a gagné !", fg="white", bg="black")
         message_gagnant.place(x=largeur_ecran // 2 - 100, y=hauteur_ecran // 2)
 
-        # Mettez à jour l'interface utilisateur pour afficher le joueur en cours
+        # Mise à jour de l'interface utilisateur pour afficher le joueur en cours
         mettre_a_jour_joueur_en_cours()
 
 
@@ -430,7 +429,7 @@ if __name__ == '__main__':
     # Création d'un bouton Attaquer
     bouton_attaquer = tk.Button(
         canvas, text="Attaquer", command=attaquer, bg="black", fg="red", bd=2, relief=tk.SOLID)
-    # Positionnez le bouton où vous le souhaitez sur le canvas
+    # Positionnement du bouton
     bouton_attaquer.place(x=largeur_ecran // 2 - 35, y=hauteur_ecran - 90)
 
     joueur_actuel = 1
